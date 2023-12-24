@@ -1,10 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Meeting Time Calculator</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.1/full/pyodide.js"></script>
 </head>
 <body>
-  <h1>Hello World</h1>
-  <p>I'm hosted with GitHub Pages.</p>
-</body>
-</html>
+
+<h1>Meeting Time Calculator</h1>
+
+<p>This tool helps you calculate when Person 2 should leave to meet Person 1 at a specific destination, accounting for travel times. It doesn't consider real-time traffic.
+</p>
+
+<label for="person1-start">Person 1's starting location:</label>
+<input type="text" id="person1-start"><br>
+
+<label for="person2-start">Person 2's starting location:</label>
+<input type="text" id="person2-start"><br>
+
+<label for="destination">Final destination:</label>
+<input type="text" id="destination"><br>
+
+<label for="person1-departure-time">Person 1's departure time (HH:MM AM/PM):</label>
+<input type="text" id="person1-departure-time"><br>
+
+<button onclick="getMeetingTime()">Calculate Meeting Time</button>
+
+<p>Person 2's departure time should be: <span id="person2-departure-time"></span></p>
+<p>Person 1 will arrive at: <span id="person1-arrival-time"></span></p>
+<p>Person 2 will arrive at: <span id="person2-arrival-time"></span></p>
+
+<script>
+async function getMeetingTime() {
+  // Create Python environment
+  let pyodide = await loadPyodide();
+  let python = await pyodide.runPythonAsync(`
+    import requests
+    from datetime import datetime, timedelta
+
+    # API key for Google Maps API
+    API_KEY = "AIzaSyDumzWIC39-1GCR0b6lxNtp-LPxsijOjKU"
+
+    def calculate_meeting_time(person1_start, person2_start, destination, person1_departure_time):
+      directions_url = "https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&key={api_key}"
+
+      # Get travel time estimates
+      person1_response = requests.get(directions_url.format(origin=person1_start, destination=destination, api_key=API_KEY)).json()
+      person2_response = requests.get(directions_url.format(origin=person2_start, destination=destination, api_key=API_KEY)).json()
+
+      person1_duration = int(person1_response["routes"][0]["legs"][0]["duration"]["value"])
+      person2_duration = int(person2_response["routes"][0]["legs"][0]["duration"]["value"])
+
+      # Parse Person 1's departure time
+      try:
+        person1_departure_time = datetime.strptime(person1_departure_time, "%I:%M %p")
+      except ValueError:
+        return {"error": "Invalid time format. Please enter time in HH:MM AM/PM format."}
+
+      # Calculate arrival times
+      person1_arrival_time = person1_departure_time + timedelta(seconds=person1_duration)
+
+      # Calculate departure time for Person 2 to meet Person 1 at the same time
+      person2_departure_time = person1_arrival_time - timedelta(seconds=person2_duration)
+
+      # Now calculate Person 2's arrival time based on their calculated departure time
+      person2_arrival_time = person2_departure_time + timedelta(seconds=person2_duration)
+
+      # Format and return times
+      person1_departure_time_str = person1_departure_time.strftime("%I:%M %p")
+      person1_arrival_time_str = person1_arrival_time.strftime("%I:%M %p")
+      person2_departure_time_str = person2_departure_time.strftime("%I:%M %p")
+      person2_arrival_time_str = person2_arrival_time.strftime("%I:%M %p")
+
+      return {
+        "person2_departure_time": person2_departure_time_str,
+        "person1_arrival_time": person1_arrival_time_str,
+        "person2_arrival_time": person2_arrival_time_str,
+      }
+  `);
