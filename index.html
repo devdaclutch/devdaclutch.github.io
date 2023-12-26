@@ -1,79 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+
 <head>
-  <title>Meeting Time Calculator</title>
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.1/full/pyodide.js"></script>
+  <title>Dev's Portfolio</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/31149d48b0.js" crossorigin="anonymous"></script>
+  <!-- linking css file -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <!-- navbar --> 
+    <!-- https://getbootstrap.com/docs/5.2/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg fixed-top navbarScroll navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Dev's Portfolio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End of navbar-->
 
-<h1>Meeting Time Calculator</h1>
 
-<p>This tool helps you calculate when Person 2 should leave to meet Person 1 at a specific destination, accounting for travel times. It doesn't consider real-time traffic.
-</p>
 
-<label for="person1-start">Person 1's starting location:</label>
-<input type="text" id="person1-start"><br>
+    <!-- main banner -->
+    <!-- https://getbootstrap.com/docs/5.2/layout/containers/ -->
+    <!-- https://getbootstrap.com/docs/5.2/layout/grid/ -->
+    <section class="container-fluid section bgimage" id="home">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hero_text">
+                <h2 class="hero_title">Hi, I'm Dev</h2>
+                <p class="hero_desc">This is my Portfolio </p>
+            </div>
+        </div>
+    </section>
 
-<label for="person2-start">Person 2's starting location:</label>
-<input type="text" id="person2-start"><br>
 
-<label for="destination">Final destination:</label>
-<input type="text" id="destination"><br>
 
-<label for="person1-departure-time">Person 1's departure time (HH:MM AM/PM):</label>
-<input type="text" id="person1-departure-time"><br>
+    <!-- about section -->
+    <section class="container mt-4 pt-4 section" id="about">
+        <h1 class="text-center">About Me</h1>
+        
+        <div class="row mt-4">
+            <div class="col-lg-4">
+                <p> [add image] </p>
+                <img src="images/about.jpeg" class="image_about" alt="">
+            </div>
 
-<button onclick="getMeetingTime()">Calculate Meeting Time</button>
+            <div class="col-lg-8">
+                <p>I am currently a second-year student at the University of California, Santa Cruz, studying Computer Engineering with a concentration in System Programming. Ever since I was young, I’ve always been interested in computers and how they function. After learning about computers, I was inspired to build my own computer. That experience was a major contribution to most of my interset today. Some of my interests include: 
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Basketball</li>
+                            <li>Coding</li>
+                            <li>Experiencing new things</li>
 
-<p>Person 2's departure time should be: <span id="person2-departure-time"></span></p>
-<p>Person 1 will arrive at: <span id="person1-arrival-time"></span></p>
-<p>Person 2 will arrive at: <span id="person2-arrival-time"></span></p>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Video Creation</li>
+                            <li>Video games</li>
+                            <li>Video Editing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <p> 
+                        add more here.....
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-async function getMeetingTime() {
-  // Create Python environment
-  let pyodide = await loadPyodide();
-  let python = await pyodide.runPythonAsync(`
-    import requests
-    from datetime import datetime, timedelta
 
-    # API key for Google Maps API
-    API_KEY = "AIzaSyDumzWIC39-1GCR0b6lxNtp-LPxsijOjKU"
+    <!-- load javascript after loading all html content -->
+    <script src="script/script.js"></script>
 
-    def calculate_meeting_time(person1_start, person2_start, destination, person1_departure_time):
-      directions_url = "https://maps.googleapis.com/maps/api/directions/json?origin={origin}&destination={destination}&key={api_key}"
+</body>
 
-      # Get travel time estimates
-      person1_response = requests.get(directions_url.format(origin=person1_start, destination=destination, api_key=API_KEY)).json()
-      person2_response = requests.get(directions_url.format(origin=person2_start, destination=destination, api_key=API_KEY)).json()
-
-      person1_duration = int(person1_response["routes"][0]["legs"][0]["duration"]["value"])
-      person2_duration = int(person2_response["routes"][0]["legs"][0]["duration"]["value"])
-
-      # Parse Person 1's departure time
-      try:
-        person1_departure_time = datetime.strptime(person1_departure_time, "%I:%M %p")
-      except ValueError:
-        return {"error": "Invalid time format. Please enter time in HH:MM AM/PM format."}
-
-      # Calculate arrival times
-      person1_arrival_time = person1_departure_time + timedelta(seconds=person1_duration)
-
-      # Calculate departure time for Person 2 to meet Person 1 at the same time
-      person2_departure_time = person1_arrival_time - timedelta(seconds=person2_duration)
-
-      # Now calculate Person 2's arrival time based on their calculated departure time
-      person2_arrival_time = person2_departure_time + timedelta(seconds=person2_duration)
-
-      # Format and return times
-      person1_departure_time_str = person1_departure_time.strftime("%I:%M %p")
-      person1_arrival_time_str = person1_arrival_time.strftime("%I:%M %p")
-      person2_departure_time_str = person2_departure_time.strftime("%I:%M %p")
-      person2_arrival_time_str = person2_arrival_time.strftime("%I:%M %p")
-
-      return {
-        "person2_departure_time": person2_departure_time_str,
-        "person1_arrival_time": person1_arrival_time_str,
-        "person2_arrival_time": person2_arrival_time_str,
-      }
-  `);
+</html>
