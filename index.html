@@ -1,126 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-  <title>Dev's Portfolio</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-  <!-- font awesome -->
-  <script src="https://kit.fontawesome.com/31149d48b0.js" crossorigin="anonymous"></script>
-  <!-- linking css file -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Coding Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, rgb(179, 233, 254), #ffffff);
+            color: #333;
+            <!--- scroll-behavior: smooth; --->
+        }
+        header {
+            height: 100vh;
+            background: url(sky.jpg) no-repeat center center/cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header h1, header p, header a {
+            position: relative;
+            z-index: 2;
+        }
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0.5rem 0;
+        }
+        header p {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+        header a {
+            text-decoration: none;
+            color: white;
+            background-color: #00acc1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        header a:hover {
+            background-color: #00838f;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #00796b;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #004d40;
+        }
+        section {
+            width: 100%;
+            padding: 2rem 1rem;
+            <!--- background: rgb(179, 233, 254);--->
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .spacer {
+            height: 3rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #00796b;
+            color: white;
+            margin-top: 2rem;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- navbar --> 
-    <!-- https://getbootstrap.com/docs/5.2/components/navbar/ -->
-    <nav class="navbar navbar-expand-lg fixed-top navbarScroll navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Dev's Portfolio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
     </nav>
-    <!-- End of navbar-->
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+        <p>Exploring code, one line at a time</p>
+        <a href="#about">About me</a>
+    </header>
 
+    <div class="spacer"></div>
 
-
-    <!-- main banner -->
-    <!-- https://getbootstrap.com/docs/5.2/layout/containers/ -->
-    <!-- https://getbootstrap.com/docs/5.2/layout/grid/ -->
-    <section class="container-fluid section bgimage" id="home">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hero_text">
-                <h2 class="hero_title">Hi, I'm Dev</h2>
-                <p class="hero_desc">This is my Portfolio </p>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- about section -->
-    <section class="container mt-4 pt-4 section" id="about">
-        <h1 class="text-center">About Me</h1>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hi there! I'm a third-year Computer Engineering student at the University of California, Santa Cruz, with a minor in Computer Science. My coding journey began in high school, where I founded a coding club and developed programs to inspire others to explore technology. Since then, I've gained experience in Python, C, JavaScript, HTML, and various other technologies. 
         
-        <div class="row mt-4">
-            <div class="col-lg-4">
-                <p> [add image] </p>
-                <img src="images/about.jpeg" class="image_about" alt="">
-            </div>
+        My passion for Data Science was sparked by a boot camp that built a strong foundation in Python and data analysis. In addition to my academic pursuits, I have hands-on experience editing YouTube videos for a well-known creator, which honed my communication and self-accountability skills. 
+        
+        When I'm not coding, I enjoy playing basketball, gaming, and creating content. My ultimate vision is to merge my technical expertise with my hobbies to create innovative and impactful solutions.</p>
+    </section>
 
-            <div class="col-lg-8">
-                <p>I am currently a second-year student at the University of California, Santa Cruz, studying Computer Engineering with a concentration in System Programming. Ever since I was young, I’ve always been interested in computers and how they function. After learning about computers, I was inspired to build my own computer. That experience was a major contribution to most of my interset today. Some of my interests include: 
-                </p>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <ul>
-                            <li>Coding</li>
-                            <li>Experiencing new things</li>
-                            <li>Video games</li>
+    <div class="spacer"></div>
 
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul>
-                            <li>Video Editing</li>
-                            <li>Working out</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                </div>
-            </div>
+    <section id="projects">
+        <h2>Projects/Classes</h2>
+        <div>
+            <h3>CSE150: Intro to Computer Networks</h3>
+            <p>This project demonstrates my coursework for CSE150, where I explored foundational concepts in computer 
+                networking. The course combined theory and practical exercises, focusing on Internet protocols like TCP/IP, 
+                HTTP, and DNS, along with routing, switching, and network security. I gained hands-on experience analyzing 
+                packet flows, configuring routers, and applying real-world protocol concepts. This repository showcases my lab 
+                exercises, detailed documentation, and a final assignment, highlighting my ability to troubleshoot and manage 
+                networked environments effectively.</p>
+            <a href="https://github.com/devdaclutch/CSE150">Click here</a>
+        </div>
+        <div>
+            <br></br>
+            <h3>JavaScript Game</h3>
+            <p>A fun interactive game built with JavaScript to explore DOM manipulation and game logic.</p>
+            <a href="#">View Project</a>
         </div>
     </section>
 
-    <!-- projects section -->
-    <section class="section" id="projects">
-        <div class="container mt-3">
-            <h1 class="text-center">Projects</h1>
-            <div class="row">
-                <div class="col-lg-4 mt-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">What time you should leave?</h4>
-                            <p class="card-text">Tells a person what time they should leave to meet their freind at a certain destination.</p>
-                            <div class="text-center">
-                                <a href="https://www.google.com" target="_blank" class="btn btn-success">Link (still work in progress)</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="spacer"></div>
 
-                
-            </section>
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>If you'd like to get in touch, feel free to email me at <a href="mailto:yourname@example.com">yourname@example.com</a>.</p>
+    </section>
 
-            
-
-
-    <!-- loads javascript after loading all html content -->
-    <script src="script/script.js"></script>
-
+    <footer>
+        <p>&copy; 2024 My Coding Portfolio. Designed with care.</p>
+    </footer>
+    
 </body>
-
 </html>

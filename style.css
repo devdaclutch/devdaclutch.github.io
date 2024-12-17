@@ -1,3 +1,4 @@
+/*
 .section {
     margin-top: 4rem;
     padding-top: 4rem;
@@ -6,7 +7,7 @@
     padding-bottom: 4rem;
 }
     
-/*  background image */
+   background image 
 .bgimage {
     height:100vh;
     background: url('images/IMG_2491.jpg');
@@ -15,7 +16,7 @@
     padding: 10px;
     margin: 0;
 }
-/* text css above image*/
+/* text css above image
 .hero_title {
     padding-top: 10rem;
     font-size: 4.5rem;
@@ -31,3 +32,4 @@
     transform: translate(-50%, -110%);
     color: white;
 }
+*/
